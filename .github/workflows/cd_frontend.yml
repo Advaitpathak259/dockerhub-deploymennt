@@ -1,4 +1,4 @@
-name: Push backend image to Docker Hub
+name: Push frontend image to Docker Hub
 
 on:
   push:
@@ -18,12 +18,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push backend image
+      - name: Build and push frontend image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./dockerfile.backend
-          build-args:
-            -DATABASE_URL=${{secrets.DATABASE_URL}}
+          file: ./dockerfile.frontend
           push: true
           tags: advait10101/dockerhub-deployment:${{ github.sha }}
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
