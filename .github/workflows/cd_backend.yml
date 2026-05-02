@@ -1,0 +1,34 @@
+#Build  the docker image 
+#push the docket to the docker hub
+#ssh into the VM and staert the new image
+
+name: Deployment the backend
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    -  name: Checkout the code
+       uses: actions/checkout@v2
+
+
+    - name: Docker login
+      uses: docker/login-action@v2
+      with: 
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_TOKEN}}
+
+
+    - name: Build and push
+      uses: docker/build-push-actions@v4
+      with:
+        context: .
+        file: ./dockerfile.backend 
+        push: true
+        tags: Advaitpathak259/dockerhub-deploymennt:${{ github.sha}}
+        #steps to deply to the VM
+        
+      
