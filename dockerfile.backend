@@ -1,0 +1,19 @@
+FROM oven/bun:1
+
+WORKDIR /usr/src/app
+
+COPY package.json ./
+COPY bun.lock ./
+COPY turbo.json ./
+
+COPY packages ./packages
+COPY apps/backend ./apps/backend
+
+RUN bun install
+
+RUN bun --filter @repo/db db:generate
+RUN bun --filter @repo/db build
+
+EXPOSE 3001
+
+CMD ["bun", "--filter", "backend", "start"]

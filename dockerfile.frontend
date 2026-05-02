@@ -1,0 +1,24 @@
+FROM oven/bun:1
+
+WORKDIR /usr/src/app
+
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
+COPY package.json ./
+COPY bun.lock ./
+COPY turbo.json ./
+
+COPY packages ./packages
+COPY apps/web ./apps/web
+
+RUN bun install
+
+RUN bun --filter @repo/db db:generate
+RUN bun --filter @repo/db build
+
+RUN bun --filter web build
+
+EXPOSE 3000
+
+CMD ["bun", "--filter", "web", "start"]
