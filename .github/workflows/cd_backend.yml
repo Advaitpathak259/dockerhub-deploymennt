@@ -24,4 +24,4 @@ jobs:
           context: .
           file: ./dockerfile.backend
           push: true
-          tags: advait10101/dockerhub-deployment:${{ github.sha }}
+          tags: advait10101/dockerhub-deployment:backend-${{ github.sha }}

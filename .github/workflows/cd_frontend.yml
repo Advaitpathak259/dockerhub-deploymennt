@@ -24,6 +24,6 @@ jobs:
           context: .
           file: ./dockerfile.frontend
           push: true
-          tags: advait10101/dockerhub-deployment:${{ github.sha }}
+          tags: advait10101/dockerhub-deployment:frontend-${{ github.sha }}
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
