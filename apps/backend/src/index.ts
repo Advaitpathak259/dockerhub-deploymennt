@@ -23,7 +23,7 @@ app.get("/users", async (req, res) => {
   res.json(users);
 });
 
-/* ================= TODO ================= */
+/* ================= TODO ============ */
 
 // Create todo
 app.post("/todos", async (req, res) => {
